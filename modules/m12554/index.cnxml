@@ -1,0 +1,97 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Length Changer</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>1dcc8d3f-3817-4670-b056-c49403ed98a7</md:uuid>
+</metadata>
+
+  <content>
+<section id="sec1">
+<title>Simple Concept, Difficult Implementation</title>
+<para id="para1">
+	The third and final voice manipulation tool we developed changes the length of the signal without altering its pitch or clarity, and the basic strategy to do so is extremely simple.  After breaking the signal into chunks by matricizing, some of the chunks are either trashed or repeated in order to compress or extend the length of the signal.  Since nobody can perceive a voice’s changing within the span of .02 seconds or less, this repetition never creates an audibly repeated noise.  It can only create an audibly lengthened or shortened noise.  Playing this sound back, though, sounds incredibly choppy, as if you were listening to the sound version of strobe lights.  But if concatenating or removing signal windows in and of itself does not create the desired result, what could the problem be?
+</para>
+
+
+<figure id="spec">
+<title>DFT of Length Changer Signals</title>
+<media id="idm9239328" alt=""><image src="../../media/DFT_length.bmp" mime-type="image/bmp"/></media>
+</figure>
+
+</section>
+<section id="sec2">
+<title>Phase Makes All The Difference</title>
+<para id="para2">
+	Upon closer inspection, it is obvious that the phase of the complex sinusoids at the beginning of a chunk is often very different than the phase at the end of the same chunk or of a previous chunk.  After slapping two windows together, this sharp phase difference becomes very clear, producing our unacceptably choppy sound.  To correct this, the length changing algorithm makes another run past each window after the new signal has been constructed, this time taking care to compute the phase at the end of the previous chunk
+<m:math>
+<m:ci>
+<m:msub>
+<m:mi>θ</m:mi>
+<m:mn>o</m:mn>
+</m:msub>
+</m:ci>
+</m:math>,the old 
+<m:math>
+<m:ci>θ</m:ci>
+</m:math>, and the phase the beginning of the next chunk
+<m:math>
+<m:ci>
+<m:msub>
+<m:mi>θ</m:mi>
+<m:mn>n</m:mn>
+</m:msub>
+</m:ci>
+</m:math>, the new
+<m:math>
+<m:ci>θ</m:ci>
+</m:math>.  Next, every value of the next chunk’s DFT gets multiplied by 
+<m:math>
+<m:apply>
+<m:exp/>
+<m:apply>
+<m:times/>
+<m:imaginaryi/>
+<m:apply>
+<m:minus/>
+<m:ci>
+<m:msub>
+<m:mi>θ</m:mi>
+<m:mn>o</m:mn>
+</m:msub>
+</m:ci>
+<m:ci>
+<m:msub>
+<m:mi>θ</m:mi>
+<m:mn>n</m:mn>
+</m:msub>
+</m:ci>
+</m:apply>
+</m:apply>
+</m:apply>
+</m:math>.  As a result, the phase at the beginning of the next chunk equals the phase at the end of the previous one, and the phase will transition smoothly between all other points in time.  This process is repeated for each and every chunk, resulting in the complete removal of the stutters.
+</para>
+</section>
+
+
+	<table frame="all" id="examples" summary="">
+	  <title>Length Changer Speech Examples</title>
+	  <tgroup cols="2" align="left" colsep="1" rowsep="1">
+	    <colspec colnum="2" colname="c2"/>
+	    <colspec colnum="4" colname="c4"/>
+	    <tbody valign="top">
+	      <row>
+	        <entry>Unaltered voice</entry>
+	        <entry><link resource="male.wav">Original</link></entry>
+	      </row>
+	      <row>
+	        <entry>Length Changed Voice</entry>
+	        <entry>
+<link resource="male2.wav">Slower</link>
+<link resource="male3.wav">Faster</link>
+</entry>
+	      </row>
+              	    </tbody>
+	  </tgroup>
+	</table>
+
+  </content>
+  
+</document>

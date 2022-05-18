@@ -1,0 +1,27 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+	<title>The Wyld Stallyn Team</title>
+	<metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>4b48d3c7-aa1c-416b-99d5-6bca275524ab</md:uuid>
+</metadata>
+	<content>
+		<section id="intro_section">
+			<title>Wyld Stallyns</title>
+			<para id="summary">
+The Wyld Stallyn Team consisted of the following people, each contributing evenly to the work load for this project.  The work for the project included: Developing and researching appropirate methods, writing code, testing and debugging code, creating the poster and writing the connexions report.</para>
+			<figure orient="vertical" id="ahlfinger">
+				<title>Robert Ahlfinger</title>
+				<media id="idp9166320" alt=""><image src="../../media/Ahlfinger.jpg" mime-type="image/jpeg"/></media>
+				<caption>Junior at Lovett College. email: ahlfing@rice.edu</caption>
+			</figure>
+			<figure id="bcheese" orient="vertical">
+				<title>Brenton Cheeseman</title>
+				<media id="idp8828016" alt=""><image src="../../media/Cheeseman.jpg" mime-type="image/jpeg"/></media>
+				<caption>Junior at Hanszen College. email: bcheese@rice.edu</caption>
+			</figure>
+			<figure orient="vertical" id="pdoody">
+				<title>Patrick Doody</title>
+				<media id="idp7926016" alt=""><image src="../../media/Doody.jpg" mime-type="image/jpeg"/></media>
+				<caption>Junior at Hanszen College. email: pdoody@rice.edu</caption>
+			</figure>
+		</section>
+	</content>
+</document>

@@ -1,0 +1,86 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Perfect Pitch:  Using Software to Alter Your Voice</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>f869c88a-dc8f-46ed-b3f6-268432881a13</md:uuid>
+</metadata>
+
+  <content>
+
+<section id="sec1">
+
+<title>Introduction on Speech Synthesis</title>
+<section id="sec12">
+   <title>Overview</title> 
+<para id="overviewp1">
+
+The ability to tweak or manipulate a person’s voice has always been useful.  Before the advent of digital signal processing, however, this task was extremely hard.  In those days, the most sophisticated manipulations could be found in rock and roll synthesizers that used analog devices to distort the noise, producing a pseudo random feel to the voice.  Other naïve approaches could be taken to alter somebody’s voice, such as changing the playback speed of the clip or modulating the signal.  However, these techniques just resulted in making the person speak with a lower pitch that sounded slurred or a higher pitch that resembled Alvin the Chipmunk.  
+</para>
+</section>
+
+<section id="sec13">
+<title>Goals</title>
+<para id="overviewp2">
+The goal of this project was to develop a more sophisticated set of voice manipulation tools using digital signal processing by developing software in Matlab.  The first and most complicated tool raises or lowers the pitch of a recorded voice without changing the length of the sound or otherwise changing the characteristics of the voice.  The second changes the length of the clip without altering the pitch of the voice.  The resulting voices from both of these tools should sound as if the original clip had been recorded anew while instructing the person doing the talking to speak more slowly, more quickly, or with a higher or lower pitch.  Finally, the third tool randomizes the voice in order to mask the identity of the speaker yet preserve her ability to communicate.
+</para>
+</section>
+
+<section id="sec14">
+<title>Applications and Examples</title>
+<para id="overviewp3">
+
+As you can imagine, there are several potential applications for our new software.  An out of tune singer can go back after a recording and tweak his or her voice to match precisely the correct tone regardless of whether the problem persists for the duration of the song or a fraction of a second.  If a newscaster’s segment goes over or under the preferred time allotment by a few seconds, his or her speech may be reduced or extended by exactly the necessary amount.
+
+	<table frame="all" id="examples" summary="">
+<title>Pitch Shifted and Randomized Speech Examples</title>
+<tgroup cols="2" align="left" colsep="1" rowsep="1"><colspec colnum="2" colname="c2"/>
+	    <colspec colnum="4" colname="c4"/>
+	    <tbody valign="top">
+	      <row>
+	        <entry>Unaltered voice</entry>
+	        <entry><link resource="fudge.wav">Original</link></entry>
+	      </row>
+	      <row>
+	        <entry>Pitch Shifted Voice</entry>
+	        <entry>
+<link resource="fudge100.wav">Up</link> 
+<link resource="fudge-50.wav">Down</link></entry>
+	      </row>
+              <row>
+	        <entry>Randomized Voice</entry>
+	        <entry><link resource="randfudge.wav">Random</link></entry>
+	      </row>
+	    </tbody>
+	  
+
+
+</tgroup>
+</table>
+
+
+<table frame="all" id="examples2" summary="">
+<title>Length Changer Speech Examples</title>
+<tgroup cols="2" align="left" colsep="1" rowsep="1"><colspec colnum="2" colname="c2"/>
+	    <colspec colnum="4" colname="c4"/>
+	    <tbody valign="top">
+	      <row>
+	        <entry>Unaltered voice</entry>
+	        <entry><link resource="male.wav">Original</link></entry>
+	      </row>
+	      <row>
+	        <entry>Length Changed Voice</entry>
+	        <entry>
+<link resource="male2.wav">Slower</link>
+<link resource="male3.wav">Faster</link>
+</entry>
+	      </row>
+              	    </tbody>
+	  
+</tgroup>
+</table>
+
+
+</para>
+</section>
+</section>
+  </content>
+  
+</document>

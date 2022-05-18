@@ -1,0 +1,45 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Reconstructing A DFT With A Pitch Shift</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>e333e228-8b65-48a6-9d55-ae689603b7aa</md:uuid>
+</metadata>
+
+  <content>
+<section id="sec1">
+<title>Reconstructing the First Half of the DFT</title>
+<para id="para1">
+	With the first harmonic in hand (if, of course, it exists) the program is ready to manipulate the signal chunk by building a new DFT from scratch but based upon the original.  The pitch you hear is the position of the fundamental frequency – the first harmonic.  So the new DFT must take the frequencies at and around the original first harmonic and copy them, without alteration, to a spot further down the spectrum.  Further, in fact, by exactly the desired pitch shift.  The frequency of the second harmonic needs to be twice as large as the first so that the new voice sounds like it came from a real person, so the second harmonic and its neighboring frequencies are shifted twice as far down the spectrum as the first group.  This is repeated with every harmonic in a similar way until half of the new DFT is full.    
+</para>
+</section>
+<section id="sec2">
+<title>Reconstructing the Second Half of the DFT</title>
+<para id="para2">
+	To reduce computational complexity, there is no need to perform this same task starting at the end of the original DFT working our way towards the middle.  We know that the resulting time-domain signal we produce must be comprised of real numbers since people are going to actually listen to it, so we can exploit the symmetry properties of the DFT.  That is, the DFT of a real-valued signal follows rule that the real part of the samples in the first half is a mirror image of the real part of the samples in the second half.  Similarly, the imaginary part of the samples in the second half is a flipped (negative) mirror image of the imaginary part of the samples in the second half.  This line simple for loop constructs the entire second half of the new DFT without any further analysis or computation.
+
+Here is an example of the magnitude of the spectrum for a chunk of signal before and after pitch manipulation.  Notice how the harmonics are not merely shifted over, but spread out as well.
+</para>
+
+<figure id="fig1">
+<title>DFT of Signal Sample</title>
+	    <subfigure id="subfig1">
+
+	      <media id="idm698784" alt=""><image src="http://cnx.rice.edu/GroupWorkspaces/wg221/DFT_B.bmp" mime-type="image/bmp"/></media>
+<caption>
+Discrete Fourier Transform showing the spectra for one 512 sample chunk of the speech signal before manipulation by the Pitch Synthesizer. 
+</caption>	    
+
+</subfigure>
+	    <subfigure id="subfig2">
+
+	      <media id="idm698464" alt=""><image src="http://cnx.rice.edu/GroupWorkspaces/wg221/DFT_A.bmp" mime-type="image/bmp"/></media>
+<caption>
+Discrete Fourier Transform of the original DFT spectra for one 512 sample chunk of the speech signal after manipulation by the Pitch Synthesizer. 
+</caption>	    
+
+
+
+</subfigure>
+	  </figure>
+</section> 
+  </content>
+  
+</document>

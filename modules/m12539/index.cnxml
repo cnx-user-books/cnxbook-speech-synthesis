@@ -1,0 +1,84 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>The Pitch Correction Algorithm: An Overview</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>f30ba9f3-3a02-4c7b-81e4-f7986e57192f</md:uuid>
+</metadata>
+
+  <content>
+<section id="sec1">
+<title>Time-Domain vs. Frequency-Domain</title>
+<para id="para1">
+Clearly, the goal of this algorithm is to take an input voice signal, change the pitch of the voice, and output the otherwise unaltered signal.  In order to do so, the first step is to decide whether to analyze and manipulate these signals in the time domain or the frequency domain.  Because our algorithm is primarily concerned with quickly identifying and shifting individual frequencies, we worked solely in the realm of the frequency domain.  Of course, there are effective ways to deal with this problem without the frequency domain.  However, as will later become obvious, there are some very useful techniques we developed that are not possible in the time domain.  With pitch correction it seems that Parseval has made a mistake; there is simply more power in the spectrum.
+</para>
+</section>
+<section id="sec2">
+<title>Basic System Model</title>
+<para id="para2">   
+Now that we have decided how to look at our signals, we need to develop a general layout and strategy for how it will work.  
+</para>
+<section id="sec11">
+<title>General Process Summary</title>
+<para id="para3">
+First, the signal is “Matricized,” a term we coined to describe our particular algorithm to break up the signal and convert it into the Fourier Domain.  Basically, the signal comes in as a long string of sampled values that together represent the whole sound.  We, in turn, convert this vector of samples into a matrix for which each column represents the spectrum of one slice, or chunk, of the signal.  Although any chunk size could be used, we found the best performance with chunk sizes of 512 samples, which represents about .02 seconds of sound for the 22 kHz sampling rate used on our signals.  Next, we take the Discrete Fourier Transform for each of the chunks, showing us the frequencies present at every given moment during the speech.  These DFTs are then collected into a matrix with 512 rows and as many columns as there are .02 second long chunks in the voice.  With a given chunk, our Harmonic Detection algorithm has the extremely difficult task of accurately and consistently identifying the first harmonic of the voice.  With that information in hand, the program reconstructs a new DFT representation for the current chunk by first sliding the first harmonic down the spectrum by the desired shift in pitch, and then following up with all of the other harmonics, shifting each one by an incremental multiple of the first shift. After all of the chunks have been processed and put into a matrix, this new matrix is “Dematricized” in order to convert the information back into the time domain as a new string of digital samples that represent the freshly manipulated voice. 
+    </para>   
+</section>
+</section>
+
+<section id="sec12">
+<title>Detailed System Model: Step-by-Step</title>
+<para id="para12">
+The pitch synthesizer relies on several algorithms to properly alter the pitch of a person’s voice without mutilating its clarity.  
+</para>
+<section id="sec123">
+<title>Matricize</title>
+<para id="para112">
+First, the signal is “matricized,” a term we coined to represent the task of transforming the string of speech samples into a matrix whose columns each represent the spectrum of an overlapping rectangular window, or chunk, of the signal.   Each portion of the voice is contained twice in this information since exactly one half of each chunk is overlapped and contained within an adjacent chunk.  Next, each column of the matrix is processed separately, meaning we attempt to change the characteristics of the voice one piece at a time and do so redundantly.  
+</para>
+</section>
+
+<section id="sec124">
+<title>Harmonic Detection</title>
+<para id="para13">
+Now that we have isolated the spectrum of a chunk of our signal, we use a harmonic detecter to find the first harmonic of the voice at that particular point in time.  This task is harder than it first appears and its level of accuracy makes the single biggest contribution to the functionality and accuracy of the pitch synthesizer as a whole.  Voiced vowel noises are the only parts of speech that contain pitch, so they need to be processed differently than the rest of the signal.  However, since there are many periods of noise as well as voiced (s and z sounds) and unvoiced (like f and t) fricatives alongside these important voiced vowel noises, the harmonic detector must wade through each chunk and first determine whether or not it is dealing with a voiced vowel noise.  If so, it computes the index of the first harmonic of the sample by taking the DFT of the first half of the magnitude of the DFT of the original signal chunk.  The resulting spectrum will have a very large DC component which represents the grab bag of frequencies present in the original signal, as well as repeating peaks corresponding to the only periodic aspect of the original DFT – the signal’s harmonics.  Therefore, the harmonic detector compares the DC amplitude with the next biggest peak, determining simultaneously whether or not this chunk is likely to be a voiced vowel noise and if so the frequency of its first harmonic.
+</para>
+</section>
+
+<section id="sec125">
+<title>Frequency Shift</title>
+<para id="para14">
+With this information in hand, our program determines how far each and every frequency must be shifted.  Since you interpret the pitch of a voice as the frequency of its first harmonic, the first harmonic is shifted by exactly the desired result.  In turn, the frequency of every harmonic is a multiple of the first, so the second harmonic must be shifted twice as far as the first, the third is shifted three times as far, and so on.  In fact, we use the index of the first harmonic to determine how much each and every frequency in the original chunk will shift to build up the first half of the DFT for our new, processed chunk.  We are trying to alter the pitch without affecting the length of the sound, so this stretched out DFT must be cut off at half the length of the original DFT, at which point we have the completed version of the front half of the new DFT.  To complete the second half, we rely on the DFT’s symmetry properties, noting that our original and final sound signals are both purely real.  Therefore, the real portion of the DFT is mirrored about the middle, and the imaginary portion is mirrored and flipped.  Finally we have completely processed the given window of the original signal.  
+</para>
+</section>
+
+<section id="sec126">
+<title>Reconstruction</title>
+<para id="para15">
+To reconstruct the original signal, these processed DFT’s each become a column of another matrix which is then “dematricized” by taking the inverse FFT of each spectrum and placing them side by side into a new signal that has the same length as the original.  The only difference of course being that the voice in the signal has become as high or as low as the desired shift. 
+</para>
+</section>
+</section>
+<table frame="all" id="examples" summary="">
+<title>Pitch Shifted Speech Examples</title>
+<tgroup cols="2" align="left" colsep="1" rowsep="1"><colspec colnum="2" colname="c2"/>
+	    <colspec colnum="4" colname="c4"/>
+	    <tbody valign="top">
+	      <row>
+	        <entry>Unaltered voice</entry>
+	        <entry><link resource="fudge.wav">Original</link></entry>
+	      </row>
+	      <row>
+	        <entry>Pitch Shifted Voice</entry>
+	        <entry>
+<link resource="fudge100.wav">Up</link> 
+<link resource="fudge-50.wav">Down</link></entry>
+	      </row>
+	    </tbody>
+	  
+
+
+</tgroup>
+</table>
+
+
+</content>
+  
+</document>

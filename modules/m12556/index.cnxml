@@ -1,0 +1,55 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Voice Randomization</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>d8f2d3f5-1c3c-4c89-b508-ac429d870115</md:uuid>
+</metadata>
+
+  <content>
+<section id="sec1">
+<title>Initial Approach</title>
+<para id="para1">
+	When two people speak with the same pitch, there is still no mistaking one for the other; the uniqueness of a voice goes beyond its tone.  The placement of harmonics, then, clearly does not make a voice distinguishable since two people with identical pitch have harmonics at exactly the same locations.  Rather, the ability to identify a voice comes from the relative height of each harmonic to the next, just like the heights of each harmonic on a clarinet and a guitar make these instruments sound different even as they play the same note.
+</para>
+
+<figure id="fig2">
+<title>DFT of Randomized Signal</title>
+<media id="idm8152800" alt=""><image src="../../media/random.bmp" mime-type="image/bmp"/></media>
+<caption>
+DFT of one 512 sample chunck of a speech signal after it has had it pitches randomly altered.
+</caption>  
+</figure>
+
+
+
+<para id="para2">
+	With this in mind, our first algorithm tackled the problem by first using the harmonic detection described earlier to pinpoint the location of each harmonic.  Using this information, the height of each harmonic was randomly lowered or raised by a slight amount.  Usually, though, the resulting voice sounded just like the original with some noise added in on top of it.  After fooling around with this concept for some time to no avail, we reached the conclusion that the idea is solid, but that to make up a new voice requires much more finesse than simply making the magnitude of each harmonic higher or lower.  Without perfectly adapting the phases and making sure that the envelope of the magnitudes is a shape that can be comprehended by a human ear as real speech, the only result is linearly adding a new signal to our old one.  The DFT of the new signal is equal to the additions we made to the harmonics of the voice.
+</para>
+</section>
+<section id="sec2">
+<title>Simplification of Process Using the Speech Synthesizer</title>
+<para id="para3">
+	The second attempt at a voice randomizer directly utilizes our pitch shifting algorithm and works much better.  First, the signal is matricized just like before.  But instead of processing each chunk in the same way, our algorithm asks the pitch shifter to shift each chunk separately, specifying a different and random shift every time.  The result is a voice with a pitch that changes wildly and extremely quickly, making it impossible to tell who it is with your raw hearing.  The main drawback with this technique is that there is no true security or identity masking.  The NSA could easily break the signal into the same 512 sample long chunks and analyze them individually along with a normal sample of the voice to determine a potential match.  However, for certain purposes this randomizer performs superbly.
+</para>
+</section>
+<table frame="all" id="examples" summary="">
+	  <title>Randomized Speech Examples</title>
+	  <tgroup cols="2" align="left" colsep="1" rowsep="1">
+	    <colspec colnum="2" colname="c2"/>
+	    <colspec colnum="4" colname="c4"/>
+	    <tbody valign="top">
+	      <row>
+	        <entry>Unaltered voice</entry>
+	        <entry><link resource="fudge.wav">Original</link></entry>
+	      </row>
+	     
+              <row>
+	        <entry>Randomized Voice</entry>
+	        <entry><link resource="randfudge.wav">Random</link></entry>
+	      </row>
+	    </tbody>
+	  </tgroup>
+	</table>
+
+
+  </content>
+  
+</document>

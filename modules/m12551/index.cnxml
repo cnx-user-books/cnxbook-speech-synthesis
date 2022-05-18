@@ -1,0 +1,51 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml" xmlns:bib="http://bibtexml.sf.net/">
+	<title>Speach Synthesis Summation</title>
+	<metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>d81abeca-0f7f-4847-9110-f2bb08e8ed3a</md:uuid>
+</metadata>
+	<content>
+		<section id="sec1">
+			<title>Concluding Thoughts on Speech Synthesis</title>
+			<para id="para1">
+As you can tell from the sound clips in <link document="m12553"/>, all three algorithms work very well.  The potential applications for these tools, especially in the recording industry, are boundless.  With more reliance upon digital signal processing and less reliance upon recording a segment two or three or more times, clips may be produced much more quickly, for less money, and with better quality.
+</para>
+			<para id="para2">
+	The shift synthesizer took by far the most time and effort to produce, mostly due to the difficulty of implementing a high quality harmonic detection algorithm.  The randomizer ended up directly utilizing the pitch software, which provided even more incentive for us to improve our harmonic detection.  Finally, the length changing program involved much more phase analysis than we had previously expected.
+</para>
+			<para id="para3">
+	These triumphs and failures all provided great experience in dealing with some important issues in digital signal processing in general and analysis of human voice signals in particular.  Over the course of developing the project, we dealt extensively with the characteristics of harmonics, the spectra of voiced and unvoiced fricatives, phase matching, and techniques for analysis and reconstruction of DFT vectors.  All in all, the project was a huge success.
+</para>
+		</section>
+		<section id="se21">
+			<title>Acknowledgements</title>
+			<para id="para5">
+<emphasis>Special thanks to Richard Baraniuk and MATLAB 6.5 for their generous assistance on the project.</emphasis>
+</para>
+		</section>
+	</content>
+	<bib:file>
+		<bib:entry id="bib2">
+			<bib:techreport>
+				<bib:author>Karneback, Stefan</bib:author>
+				<bib:title>"Expanded Examinations of a Low  Frequency  Modulation Feature for Speech  Discrimination"</bib:title>
+				<bib:institution>Centre for  Speech Technology, KTH  and Flextronics International.   &lt;http://www.speech.kth.se/~stefank/Expand_inv_lf.pdf&gt;</bib:institution>
+				<bib:year>2004</bib:year>
+			</bib:techreport>
+		</bib:entry>
+		<bib:entry id="bib1">
+			<bib:techreport>
+				<bib:author>Kluender, Keith R</bib:author>
+				<bib:title>“Effects of Contrast between onsets of  Speech and other Complex Spectra”</bib:title>
+				<bib:institution>Psychology  Department at University of Wisconsin.  &lt;http://www.physiology.wisc.edu/pubs/JAS02225.pdf&gt; </bib:institution>
+				<bib:year>2004</bib:year>
+			</bib:techreport>
+		</bib:entry>
+		<bib:entry id="bib3">
+			<bib:techreport>
+				<bib:author>Wang, Meng</bib:author>
+				<bib:title>“An Algorithm for V/UV/S Segmentation of  Speech”</bib:title>
+				<bib:institution>Computer Science Department at NCSU.   &lt;http://www.csc.ncsu.edu/faculty/rodman/Segmentor.pdf&gt;</bib:institution>
+				<bib:year>2004</bib:year>
+			</bib:techreport>
+		</bib:entry>
+	</bib:file>
+</document>
